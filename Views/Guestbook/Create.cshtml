@@ -1,0 +1,22 @@
+﻿@model WebApplication3.Models.Guestbooks
+
+@using (Html.BeginForm("Add", "Guestbook"))
+{
+    @Html.AntiForgeryToken()
+    <h3>新增留言</h3>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Content)
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Content, new { rows = "5", cols = "35" })
+                        @Html.ValidationMessageFor(model => model.Content)
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="新增留言" />
+        </div>
+}
+

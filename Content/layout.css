@@ -1,0 +1,80 @@
+﻿div div.container > div.navbar-collapse > ul.nav > li > a:hover {
+    color: white;
+}
+
+div.section1 {
+    float: left;
+    width: 480px;
+}
+
+div.section2 {
+    float: left;
+    width: 450px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.blue {
+    color: blue;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.purple {
+    color: purple;
+}
+
+.orange {
+    color: orange;
+}
+
+.brown {
+    color: brown;
+}
+
+.black {
+    color: black;
+}
+
+.darkolivegreen {
+    color: darkolivegreen;
+}
+
+.magenta {
+    color: magenta;
+}
+
+div.borderbottom {
+    border-bottom: 2px dashed black;
+}
+
+table.TB_COLLAPSE {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    table.TB_COLLAPSE thead td {
+        padding: 5px 10px;
+        color: #fff;
+        background-color: #915957;
+    }
+
+    table.TB_COLLAPSE tbody td {
+        padding: 5px 10px;
+        color: #555;
+        text-align: center;
+        background-color: #fff;
+        border-bottom: 1px solid #915957;
+    }
+
+    table.TB_COLLAPSE tfoot td {
+        padding: 5px 10px;
+        text-align: center;
+        background-color: #d6d6a5;
+    }

@@ -1,0 +1,247 @@
+﻿@model WebApplication3.ViewModels.MarketView
+
+@{
+    ViewBag.Title = "大盤指數";
+}
+<h4>個股搜尋</h4>
+@using (Html.BeginForm("getStockItem", "Stock", FormMethod.Get))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Search)
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.Search)
+            </td>
+            <td>
+                <input type="submit" value="個股查詢" />
+            </td>
+        </tr>
+    </table>
+}
+<br />
+<h4 class="purple">大盤市況</h4>
+<div style="border-bottom: 1px dashed brown;">
+    @Html.ActionLink("今日期貨契約", "TaifexXLS", "Currency")
+</div>
+<div style="border-bottom: 1px dashed brown;">
+    <table cellpadding="10" cellspacing="0" style="text-align:right">
+        @if (Model.VIXList != null)
+        {
+            <tr>
+                <td>
+                    近日台股多空比率：
+                </td>
+                @for (int i = 0; i < Model.ForceRatio.Count(); i++)
+                {
+                    <td id="ForceRatio_@i" onmousemove="checkValue(this.id, 1.1, this.innerText)">
+                        @Model.ForceRatio[i].ToString("0.00")
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+<div style="border-bottom: 1px dashed brown;">
+    <h4 class="purple">三大法人買賣超</h4>
+    <table cellpadding="10" cellspacing="0" style="text-align:right">
+        @if (Model.LegalPerson != null)
+        {
+            <tr>
+                <td colspan="4" class="red">@Model.LegalPerson[0]</td>
+            </tr>
+            <tr>
+                <td>外資</td>
+                <td>投信</td>
+                <td>自營</td>
+                <td>合計</td>
+            </tr>
+            <tr>
+                @for (int i = 1; i < 5; i++)
+                {
+                    <td>
+                        @Model.LegalPerson[i]
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td colspan="4" class="red">@Model.LegalPerson[5]</td>
+            </tr>
+            <tr>
+                <td>外資</td>
+                <td>投信</td>
+                <td>自營</td>
+                <td>合計</td>
+            </tr>
+            <tr>
+                @for (int i = 6; i < 10; i++)
+                {
+                    <td>
+                        @Model.LegalPerson[i]
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+<div style="border-bottom: 1px dashed brown;">
+    <h4 class="purple">近十日普爾500波動率指數-VIX</h4>
+    <table cellpadding="10" cellspacing="0" style="text-align:right">
+        @if (Model.VIXList != null)
+        {
+            <tr class="red">
+                @for (int i = 0; i < 10; i++)
+                {
+                    <td>
+                        @Model.VIXList[i].Split(',')[0]
+                    </td>
+                }
+            </tr>
+            <tr>
+                @for (int i = 0; i < 10; i++)
+                {
+                    <td>
+                        @Model.VIXList[i].Split(',')[1]
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+<h4 class="purple">近日類股漲跌幅</h4>
+<div style="border-bottom: 1px dashed brown;">
+    <div class="col-md-3">
+        <table cellpadding="10" cellspacing="0" style="text-align:right">
+            @if (Model.MarketList != null)
+            {
+                <tr class="red">
+                    <td>
+                        No
+                    </td>
+                    <td>
+                        類股名稱
+                    </td>
+                    <td>
+                        漲幅%
+                    </td>
+                </tr>
+                for (int i = 0; i < 5; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.MarketList[i].Order
+                        </td>
+                        <td>
+                            @Model.MarketList[i].Name
+                        </td>
+                        <td>
+                            @Model.MarketList[i].Amplitude
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div class="col-md-3">
+        <table cellpadding="10" cellspacing="0" style="text-align:right">
+            @if (Model.MarketList != null)
+            {
+                <tr class="red">
+                    <td>
+                        No
+                    </td>
+                    <td>
+                        類股名稱
+                    </td>
+                    <td>
+                        漲幅%
+                    </td>
+                </tr>
+                for (int i = 5; i < 10; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.MarketList[i].Order
+                        </td>
+                        <td>
+                            @Model.MarketList[i].Name
+                        </td>
+                        <td>
+                            @Model.MarketList[i].Amplitude
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div class="col-md-3">
+        <table cellpadding="10" cellspacing="0" style="text-align:right">
+            @if (Model.MarketList != null)
+            {
+                <tr class="green">
+                    <td>
+                        No
+                    </td>
+                    <td>
+                        類股名稱
+                    </td>
+                    <td>
+                        跌幅%
+                    </td>
+                </tr>
+                for (int i = 10; i < 15; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.MarketList[i].Order
+                        </td>
+                        <td>
+                            @Model.MarketList[i].Name
+                        </td>
+                        <td>
+                            @Model.MarketList[i].Amplitude
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div class="col-md-3">
+        <table cellpadding="10" cellspacing="0" style="text-align:right">
+            @if (Model.MarketList != null)
+            {
+                <tr class="green">
+                    <td>
+                        No
+                    </td>
+                    <td>
+                        類股名稱
+                    </td>
+                    <td>
+                        跌幅%
+                    </td>
+                </tr>
+                for (int i = 15; i < 20; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.MarketList[i].Order
+                        </td>
+                        <td>
+                            @Model.MarketList[i].Name
+                        </td>
+                        <td>
+                            @Model.MarketList[i].Amplitude
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/Scripts/stock.js")
+}

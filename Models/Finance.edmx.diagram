@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="548b18898c2940b09837c740c4c34a42" Name="Diagram1">
+        <EntityTypeShape EntityType="FinanceModel.Exchange" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Stock" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Libor" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FinanceModel.MonetaryAggregate" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FinanceModel.Taifex" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FinanceModel.Macroeconomic" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FinanceModel.BullAndBear" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="FinanceModel.CYQ" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="FinanceModel.Voucher" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="FinanceModel.CRB_BDI" Width="1.5" PointX="9.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

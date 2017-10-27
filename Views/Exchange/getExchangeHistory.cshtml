@@ -1,0 +1,138 @@
+﻿@model WebApplication3.ViewModels.ExchangeView
+@{
+    ViewBag.Title = "歷史匯率";
+}
+
+<div id="DataList">
+    <h3>歷史匯率</h3>
+    @using (Html.BeginForm("getExchangeHistory", "Exchange", FormMethod.Get))
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Search)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Search)
+                </td>
+                <td>
+                    <input type="submit" value="搜尋" />
+                </td>
+            </tr>
+        </table>
+    }
+    @Html.ActionLink("更新資料", "UpdateData", new { Page = 1, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+    <div>
+    <table cellpadding="10" cellspacing="0" style="text-align:right">
+        @if (!Model.ExchangeList.Count.Equals(0))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ExchangeList[0].Currency)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.ExchangeList[0].QuotedDate)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.ExchangeList[0].CashRate_Buying)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.ExchangeList[0].CashRate_Selling)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.ExchangeList[0].SpotRate_Buying)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.ExchangeList[0].SpotRate_Selling)
+                </td>
+            </tr>
+            foreach (var item in Model.ExchangeList)
+            {
+                <tr>
+                    <td>
+                        @item.Currency
+                    </td>
+                    <td>
+                        @item.QuotedDate.ToString("yyyy/MM/dd")
+                    </td>
+                    <td>
+                        @item.CashRate_Buying.ToString("#0.00")
+                    </td>
+                    <td>
+                        @item.CashRate_Selling.ToString("#0.00")
+                    </td>
+                    <td>
+                        @item.SpotRate_Buying.ToString("#0.00")
+                    </td>
+                    <td>
+                        @item.SpotRate_Selling.ToString("#0.00")
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6">
+                    資料庫查無資料
+                </td>
+            </tr>
+        }
+        <tr>
+
+            @if (Model.Paging.NowPage > 1)
+            {
+                <td>
+                    @Ajax.ActionLink("<<", "getExchangeHistory", "Exchange", new { Search = Model.Search, Page = 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                </td>
+                <td>
+                    @Ajax.ActionLink("<", "getExchangeHistory", "Exchange", new { Search = Model.Search, Page = Model.Paging.NowPage - 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                </td>
+            }
+            else
+            {
+                <td colspan="2"> </td>
+            }
+
+            <td colspan="2">
+                @for (var page = (Model.Paging.NowPage - 5); page < (Model.Paging.NowPage) + 5; page++)
+                {
+                    if ((page > 0) && page <= Model.Paging.MaxPage)
+                    {
+                        if (page == Model.Paging.NowPage)
+                        {
+                            <b>@page</b>
+                        }
+                        else
+                        {
+                            @Ajax.ActionLink(page.ToString(), "Index", "Exchange", new { Search = Model.Search, Page = page }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                        }
+                    }
+                }
+            </td>
+            @if (Model.Paging.NowPage < Model.Paging.MaxPage)
+            {
+                <td>
+                    @Ajax.ActionLink(">", "getExchangeHistory", "Exchange", new { Search = Model.Search, Page = Model.Paging.NowPage + 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                </td>
+                <td>
+                    @Ajax.ActionLink(">>", "getExchangeHistory", "Exchange", new { Search = Model.Search, Page = Model.Paging.MaxPage }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                </td>
+            }
+            else
+            {
+                <td colspan="2"></td>
+            }
+
+        </tr>
+    </table>
+    </div>
+    <canvas id="myCanvas" width="400" height="300" style="border: 1px solid #666666;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/bundles/Stock")
+}

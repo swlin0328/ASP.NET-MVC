@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "MVC股票網頁";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>股市分析</h3>
+        <p>
+            大盤趨勢解析、類股強弱指標、個股技術分析、產業基本面。
+        </p>
+        <p>@Html.ActionLink("股票功能", "Index", "Stock", new { Page = "1" }, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h3>匯市分析</h3>
+        <p>
+            貨幣技術分析、有效匯率指標、各國利率政策、資金面動能。
+        </p>
+        <p>@Html.ActionLink("外匯功能", "Index", "Exchange", new { Page = "1" }, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h3>總經分析</h3>
+        <p>
+            通貨膨脹、就業報告、製造業指數、零售業銷售值等先行指標。
+        </p>
+        <p>@Html.ActionLink("總經功能", "Index", "MacroEconomic", new { Page = "1" }, new { @class = "btn btn-default" })
+    </div>
+</div>
+
+<div id="RSS">
+    @Html.Action("RSSContent", "RSS")
+</div>
+
+<script>
+    setInterval(function () {
+        $.ajax({
+            url: "@Url.Action("RSSContent", "RSS")", success: function (result) {
+                $("#RSS").html(result);
+            }
+        });
+    }, 300000);
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+}

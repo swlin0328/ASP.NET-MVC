@@ -1,0 +1,373 @@
+﻿@model WebApplication3.ViewModels.MacroEconomicView
+
+@{
+    ViewBag.Title = "個股價格";
+}
+
+<div id="DataList" class="col-md-10">
+    <h3 class="blue">美國近期總經指標</h3>
+
+    <table cellpadding="10" cellspacing="0" style="text-align:right;">
+        @if (!Model.MacroEconomicList.Count.Equals(0))
+        {
+            <tr>
+                <td class="red">
+                    分類
+                </td>
+                <td>
+                    指標名稱
+                </td>
+                @for ( int i= 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                <td>
+                    @Model.MacroEconomicList[i].Publish_Date.ToString("yyyy/MM")
+                </td>
+                }
+            </tr>
+            <tr>
+                <td class="red">
+                    物價
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].CPI)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].CPI.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].CPI_GrowthRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].CPI_GrowthRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].CCPI)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].CCPI.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].CCPI_GrowthRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].CCPI_GrowthRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].PPI_GrowthRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].PPI_GrowthRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td class="red">
+                    勞動
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Unemployment_Rate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Unemployment_Rate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].NFP)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].NFP
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Weekly_Work_Hours)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Weekly_Work_Hours.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Hourly_WageRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Hourly_WageRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td class="red">
+                    貿易
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Export_IncreasedRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Export_IncreasedRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Export_PriceRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Export_PriceRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Import_IncreasedRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Import_IncreasedRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Import_PriceRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Import_PriceRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td class="red">
+                    房屋
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Housing_Starts)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Housing_Starts.ToString("0")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Housing_Starts_GrowthRate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Housing_Starts_GrowthRate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td class="red">
+                    消費
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Retail_Sales_Rate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Retail_Sales_Rate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Retail_Sales_Rate_NoCar)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Retail_Sales_Rate_NoCar.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Personal_Expenditure_Rate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Personal_Expenditure_Rate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Individual_Income_Rate)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Individual_Income_Rate.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].ICS)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].ICS.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td class="red">
+                    工業
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Capacity_Utilization)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Capacity_Utilization.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Durable_Orders)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Durable_Orders.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Factory_Orders)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Factory_Orders.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Factory_Stock)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Factory_Stock.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Factory_Shipments)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Factory_Shipments.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].Manufacturing_PMI)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].Manufacturing_PMI.ToString("0.00")
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayNameFor(model => model.MacroEconomicList[0].PMI)
+                </td>
+                @for (int i = 0; i < Model.MacroEconomicList.Count(); i++)
+                {
+                    <td>
+                        @Model.MacroEconomicList[i].PMI.ToString("0.00")
+                    </td>
+                }
+            </tr>
+        }
+        else
+        {
+        <tr>
+            <td colspan="9">
+                資料庫查無資料
+            </td>
+        </tr>
+        }
+    </table>
+</div>

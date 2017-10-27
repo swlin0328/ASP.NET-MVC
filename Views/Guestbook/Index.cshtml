@@ -1,0 +1,97 @@
+﻿@model WebApplication3.ViewModels.GuestbookView
+
+@{
+    ViewBag.Title = "留言板首頁";
+}
+<style>
+    BODY {
+        SCROLLBAR-FACE-COLOR:#d8fcfc;
+        SCROLLBAR-HIGHLIGHT-COLOR:#d8fcfc;
+        SCROLLBAR-SHADOW-COLOR:#24fcfc;
+        SCROLLBAR-3DLIGHT-COLOR:#90fcfc;
+        SCROLLBAR-ARROW-COLOR:#90fcfc;
+        SCROLLBAR-TRACK-COLOR:#fcfcfc;
+        SCROLLBAR-DARKSHADOW-COLOR:#48fcfc;
+    }
+
+    BODY {
+        Font-Family:verdana;
+        Font-Size:11px;
+        LINE-HEIGHT:200%;
+        MARGIN:20px 400px 0px 0px;
+        WIDTH:100%;
+        COLOR:#0090fc;
+        HEIGHT:100%;
+        background-color:#fff;
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-position:100% 100%;
+    }
+
+    a {
+        color: #4890fc;
+        text-decoration:none;
+    }
+
+        a:hover {
+            color: #6cd8fc;
+            cursor: n-resize;
+        }
+
+    .description {
+        font-family:verdana, arial, sans-serif;
+        color:#336699;
+        font-weight:normal;
+        background:none;
+        text-transform:none;
+        letter-spacing:1px;
+        TEXT-ALIGN:left;
+        padding-top:5px;
+        width :450px;
+    }
+
+    TD {
+        border:none;
+        PADDING:0px;
+        font-family:verdana, arial, sans-serif;
+        COLOR:#336699;
+        LETTER-SPACING:1px;
+    }
+
+    TABLE {
+        PADDING:0px;
+        BACKGROUND:none;
+        border:none;
+        WIDTH:350px;
+        text-align:left;
+    }
+
+    input, select {
+        background:#fff;
+        color:#6699cc;
+        border:1px solid #6699cc;
+        font-family:verdana;
+    }
+
+    select {
+        display: none;
+    }
+
+    textarea {
+        color:#336699;
+        border:1px solid #6699cc;
+    }
+
+</style>
+<h3>留言板首頁</h3>
+<div class="col-md-6">
+    @Html.Action("GetDataList")
+</div>
+<div id="CreateDate" class="col-md-6">
+    @Html.Action("Create")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/bundles/jqueryval")
+}

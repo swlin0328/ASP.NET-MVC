@@ -1,0 +1,64 @@
+﻿@model WebApplication3.ViewModels.RateListView
+
+<h4 class="blue">主要國家基準利率</h4>
+<table cellpadding="10" cellspacing="0" style="text-align:right">
+    @if (!Model.RateList.Count.Equals(0))
+    {
+        <tr>
+            <td>
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.RateList[0].RateName)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.RateList[0].Rate)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.RateList[0].point)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.RateList[0].LastRate)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.RateList[0].pubDate)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.RateList[0].Inflation)
+            </td>
+        </tr>
+        foreach (var item in Model.RateList)
+        {
+            <tr>
+                <td>
+                    @item.Country
+                </td>
+                <td>
+                    @item.RateName
+                </td>
+                <td>
+                    @item.Rate
+                </td>
+                <td>
+                    @item.point
+                </td>
+                <td>
+                    @item.LastRate
+                </td>
+                <td>
+                    @item.pubDate
+                </td>
+                <td>
+                    @item.Inflation
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="5">
+                查無資料
+            </td>
+        </tr>
+    }
+</table>

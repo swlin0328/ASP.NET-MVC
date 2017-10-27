@@ -1,0 +1,142 @@
+﻿@model WebApplication3.ViewModels.StockView
+
+@{
+    ViewBag.Title = "歷史股價";
+}
+
+<div id="DataList">
+    <h3>歷史股價</h3>
+    @using (Html.BeginForm("getStockItem", "Stock", FormMethod.Get))
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Search)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Search)
+                </td>
+                <td>
+                    <input type="submit" value="搜尋" />
+                </td>
+            </tr>
+        </table>
+    }
+    @Html.ActionLink("更新資料", "UpdateData", new { Page = 1, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+    @if (!Model.StockList.Count.Equals(0))
+    {
+        <h5>@Model.StockList[0].stockName</h5>
+    }
+    <div class="section1">
+    <table cellpadding="10" cellspacing="0" style="text-align:right; width: 480px ">
+        @if (!Model.StockList.Count.Equals(0))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.StockList[0].Id)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.StockList[0].Price_Date)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.StockList[0].Price_Close)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.StockList[0].Price_Open)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.StockList[0].Price_High)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.StockList[0].Price_Low)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.StockList[0].Volume)
+                </td>
+            </tr>
+            foreach (var item in Model.StockList)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Price_Date.ToString("yyyy/MM/dd")
+                    </td>
+                    <td>
+                        @item.Price_Close.ToString("#0.00")
+                    </td>
+                    <td>
+                        @item.Price_Open.ToString("#0.00")
+                    </td>
+                    <td>
+                        @item.Price_High.ToString("#0.00")
+                    </td>
+                    <td>
+                        @item.Price_Low.ToString("#0.00")
+                    </td>
+                    <td>
+                        @(item.Volume / 1000)
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7">
+                    資料庫查無資料
+                </td>
+            </tr>
+        }
+        <tr>
+            @if (Model.Paging.NowPage > 1)
+            {
+                <td>
+                    @Ajax.ActionLink("<<", "getStockHistory", new { Page = 1, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                </td>
+                <td>
+                    @Ajax.ActionLink("<", "getStockHistory", new { Page = Model.Paging.NowPage - 1, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                </td>
+            }
+            else
+            {
+                <td colspan="2"> </td>
+            }
+            <td colspan="3">
+                @for (var page = (Model.Paging.NowPage - 5); page < (Model.Paging.NowPage) + 6; page++)
+                {
+                    if ((page > 0) && page <= Model.Paging.MaxPage)
+                    {
+                        if (page == Model.Paging.NowPage)
+                        {
+                            <b>@page</b>
+                        }
+                        else
+                        {
+                            @Ajax.ActionLink(page.ToString(), "Index", new { Page = page, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                        }
+                    }
+                }
+            </td>
+            @if (Model.Paging.NowPage < Model.Paging.MaxPage)
+            {
+                <td>
+                    @Ajax.ActionLink(">", "getStockHistory", new { Page = Model.Paging.NowPage + 1, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                </td>
+                <td>
+                    @Ajax.ActionLink(">>", "getStockHistory", new { Page = Model.Paging.MaxPage, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+                </td>
+            }
+            else
+            {
+                <td colspan="2"> </td>
+            }
+        </tr>
+    </table>
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+}

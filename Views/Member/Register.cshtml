@@ -1,0 +1,69 @@
+﻿@model WebApplication3.ViewModels.MemberRegisterView
+
+@{
+    ViewBag.Title = "註冊";
+}
+
+<h2>註冊</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true);
+
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.newMember.Account)
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.newMember.Account)
+                @Html.ValidationMessageFor(model => model.newMember.Account)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Password)
+            </td>
+            <td>
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PasswordCheck)
+            </td>
+            <td>
+                @Html.PasswordFor(model => model.PasswordCheck)
+                @Html.ValidationMessageFor(model => model.PasswordCheck)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.newMember.Name)
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.newMember.Name)
+                @Html.ValidationMessageFor(model => model.newMember.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.newMember.Email)
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.newMember.Email)
+                @Html.ValidationMessageFor(model => model.newMember.Email)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="註冊">
+            </td>
+        </tr>
+    </table>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

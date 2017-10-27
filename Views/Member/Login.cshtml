@@ -1,0 +1,47 @@
+﻿@model WebApplication3.ViewModels.MemberLoginView
+
+@{
+    ViewBag.Title = "登入";
+}
+
+<h2>登入</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.UserName)
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Password)
+            </td>
+            <td>
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationSummary()
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="登入">
+                @Html.ActionLink("註冊","Register")
+            </td>
+        </tr>
+    </table>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

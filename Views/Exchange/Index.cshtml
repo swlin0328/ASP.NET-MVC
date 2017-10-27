@@ -1,0 +1,82 @@
+﻿@model WebApplication3.ViewModels.ExchangeView
+
+@{
+    ViewBag.Title = "getExchangeItem";
+}
+
+<h4>歷史匯率搜尋</h4>
+
+@using (Html.BeginForm("getExchangeHistory", "Exchange", FormMethod.Get))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Search)
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.Search)
+            </td>
+            <td>
+                <input type="submit" value="搜尋" />
+            </td>
+        </tr>
+    </table>
+}
+<br />
+<div class="col-md-5">
+<h4 class="blue">台灣銀行-營業時間牌告匯率</h4>
+<h5>@Model.ExchangeList[1].QuotedDate</h5>
+<table cellpadding="10" cellspacing="0" style="text-align:right">
+    @if (!Model.ExchangeList.Count.Equals(0))
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ExchangeList[0].Currency)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.ExchangeList[0].CashRate_Buying)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.ExchangeList[0].CashRate_Selling)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.ExchangeList[0].SpotRate_Buying)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.ExchangeList[0].SpotRate_Selling)
+            </td>
+        </tr>
+        foreach (var item in Model.ExchangeList)
+        {
+            <tr>
+                <td>
+                    @item.Currency
+                </td>
+                <td>
+                    @item.CashRate_Buying.ToString("#0.00")
+                </td>
+                <td>
+                    @item.CashRate_Selling.ToString("#0.00")
+                </td>
+                <td>
+                    @item.SpotRate_Buying.ToString("#0.00")
+                </td>
+                <td>
+                    @item.SpotRate_Selling.ToString("#0.00")
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="5">
+                查無資料
+            </td>
+        </tr>
+    }  
+</table>
+</div>
+<div class="col-md-7">
+    @Html.Action("MainCountry", "Rate")
+</div>

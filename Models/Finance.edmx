@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BullAndBear">
+          <Key>
+            <PropertyRef Name="Publish_Date" />
+          </Key>
+          <Property Name="Publish_Date" Type="datetime" Nullable="false" />
+          <Property Name="Bull" Type="money" Nullable="false" />
+          <Property Name="Limit_Up" Type="money" Nullable="false" />
+          <Property Name="Red_Candle" Type="money" Nullable="false" />
+          <Property Name="Bear" Type="money" Nullable="false" />
+          <Property Name="Limit_Down" Type="money" Nullable="false" />
+          <Property Name="Black_Candle" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CRB_BDI">
+          <Key>
+            <PropertyRef Name="Publish_Date" />
+          </Key>
+          <Property Name="Publish_Date" Type="datetime" Nullable="false" />
+          <Property Name="BDI" Type="money" Nullable="false" />
+          <Property Name="CRB" Type="money" Nullable="false" />
+          <Property Name="Oil" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CYQ">
+          <Key>
+            <PropertyRef Name="Stock_Number" />
+            <PropertyRef Name="Publish_Week" />
+          </Key>
+          <Property Name="Stock_Number" Type="int" Nullable="false" />
+          <Property Name="Publish_Week" Type="datetime" Nullable="false" />
+          <Property Name="CYQ" Type="money" Nullable="false" />
+          <Property Name="Foreign_Investment" Type="money" Nullable="false" />
+          <Property Name="Major_Player" Type="money" Nullable="false" />
+          <Property Name="Supervisor" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Exchange">
+          <Key>
+            <PropertyRef Name="Currency" />
+            <PropertyRef Name="QuotedDate" />
+          </Key>
+          <Property Name="Currency" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="QuotedDate" Type="datetime" Nullable="false" />
+          <Property Name="CashRate_Buying" Type="money" Nullable="false" />
+          <Property Name="CashRate_Selling" Type="money" Nullable="false" />
+          <Property Name="SpotRate_Buying" Type="money" Nullable="false" />
+          <Property Name="SpotRate_Selling" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Libor">
+          <Key>
+            <PropertyRef Name="QuotedDate" />
+          </Key>
+          <Property Name="QuotedDate" Type="datetime" Nullable="false" />
+          <Property Name="0N" Type="money" Nullable="false" />
+          <Property Name="1W" Type="money" Nullable="false" />
+          <Property Name="1M" Type="money" Nullable="false" />
+          <Property Name="3M" Type="money" Nullable="false" />
+          <Property Name="6M" Type="money" Nullable="false" />
+          <Property Name="12M" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Macroeconomics">
+          <Key>
+            <PropertyRef Name="Publish_Date" />
+          </Key>
+          <Property Name="Publish_Date" Type="datetime" Nullable="false" />
+          <Property Name="CPI" Type="money" Nullable="false" />
+          <Property Name="CPI_GrowthRate" Type="money" Nullable="false" />
+          <Property Name="CCPI" Type="money" Nullable="false" />
+          <Property Name="CCPI_GrowthRate" Type="money" Nullable="false" />
+          <Property Name="PPI_GrowthRate" Type="money" Nullable="false" />
+          <Property Name="Unemployment_Rate" Type="money" Nullable="false" />
+          <Property Name="NFP" Type="int" Nullable="false" />
+          <Property Name="Weekly_Work_Hours" Type="money" Nullable="false" />
+          <Property Name="Hourly_WageRate" Type="money" Nullable="false" />
+          <Property Name="Export_IncreasedRate" Type="money" Nullable="false" />
+          <Property Name="Export_PriceRate" Type="money" Nullable="false" />
+          <Property Name="Import_IncreasedRate" Type="money" Nullable="false" />
+          <Property Name="Import_PriceRate" Type="money" Nullable="false" />
+          <Property Name="Housing_Starts" Type="money" Nullable="false" />
+          <Property Name="Housing_Starts_GrowthRate" Type="money" Nullable="false" />
+          <Property Name="Retail_Sales_Rate" Type="money" Nullable="false" />
+          <Property Name="Retail_Sales_Rate_NoCar" Type="money" Nullable="false" />
+          <Property Name="Personal_Expenditure_Rate" Type="money" Nullable="false" />
+          <Property Name="Individual_Income_Rate" Type="money" Nullable="false" />
+          <Property Name="ICS" Type="money" Nullable="false" />
+          <Property Name="Capacity_Utilization" Type="money" Nullable="false" />
+          <Property Name="Durable_Orders" Type="money" Nullable="false" />
+          <Property Name="Factory_Orders" Type="money" Nullable="false" />
+          <Property Name="Factory_Stock" Type="money" Nullable="false" />
+          <Property Name="Factory_Shipments" Type="money" Nullable="false" />
+          <Property Name="Manufacturing_PMI" Type="money" Nullable="false" />
+          <Property Name="PMI" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonetaryAggregate">
+          <Key>
+            <PropertyRef Name="QuotedDate" />
+          </Key>
+          <Property Name="QuotedDate" Type="datetime" Nullable="false" />
+          <Property Name="M1A_Daily" Type="money" Nullable="false" />
+          <Property Name="M1A_Annual_Rate" Type="money" Nullable="false" />
+          <Property Name="M1B_Daily" Type="money" Nullable="false" />
+          <Property Name="M1B_Annual_Rate" Type="money" Nullable="false" />
+          <Property Name="M2_Daily" Type="money" Nullable="false" />
+          <Property Name="M2_Annual_Rate" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Price_Date" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="stockName" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Price_Date" Type="datetime" Nullable="false" />
+          <Property Name="Price_Open" Type="money" Nullable="false" />
+          <Property Name="Price_High" Type="money" Nullable="false" />
+          <Property Name="Price_Low" Type="money" Nullable="false" />
+          <Property Name="Price_Close" Type="money" Nullable="false" />
+          <Property Name="Volume" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Taifex">
+          <Key>
+            <PropertyRef Name="QuotedDate" />
+          </Key>
+          <Property Name="QuotedDate" Type="datetime" Nullable="false" />
+          <Property Name="Future_Foreign_Buy" Type="money" Nullable="false" />
+          <Property Name="Future_Foreign_Sell" Type="money" Nullable="false" />
+          <Property Name="Future_Foreign_Net" Type="money" Nullable="false" />
+          <Property Name="Future_Dealer_Buy" Type="money" Nullable="false" />
+          <Property Name="Future_Dealer_Sell" Type="money" Nullable="false" />
+          <Property Name="Future_Dealer_Net" Type="money" Nullable="false" />
+          <Property Name="Future_Top5_Buy" Type="money" Nullable="false" />
+          <Property Name="Future_Top5_Buy_Percent" Type="money" Nullable="false" />
+          <Property Name="Future_Top5_Sell" Type="money" Nullable="false" />
+          <Property Name="Future_Top5_Sell_Percent" Type="money" Nullable="false" />
+          <Property Name="Future_Top10_Buy" Type="money" Nullable="false" />
+          <Property Name="Future_Top10_Buy_Percent" Type="money" Nullable="false" />
+          <Property Name="Future_Top10_Sell" Type="money" Nullable="false" />
+          <Property Name="Future_Top10_Sell_Percent" Type="money" Nullable="false" />
+          <Property Name="Option_Foreign_Buy" Type="money" Nullable="false" />
+          <Property Name="Option_Foreign_Sell" Type="money" Nullable="false" />
+          <Property Name="Option_Foreign_Net" Type="money" Nullable="false" />
+          <Property Name="Option_Dealer_Buy" Type="money" Nullable="false" />
+          <Property Name="Option_Dealer_Sell" Type="money" Nullable="false" />
+          <Property Name="Option_Dealer_Net" Type="money" Nullable="false" />
+          <Property Name="Option_Top5_Long_Buy" Type="money" Nullable="false" />
+          <Property Name="Option_Top5_Long_Buy_Percent" Type="money" Nullable="false" />
+          <Property Name="Option_Top5_Long_Sell" Type="money" Nullable="false" />
+          <Property Name="Option_Top5_Long_Sell_Percent" Type="money" Nullable="false" />
+          <Property Name="Option_Top10_Long_Buy" Type="money" Nullable="false" />
+          <Property Name="Option_Top10_Long_Buy_Percent" Type="money" Nullable="false" />
+          <Property Name="Option_Top10_Long_Sell" Type="money" Nullable="false" />
+          <Property Name="Option_Top10_Long_Sell_Percent" Type="money" Nullable="false" />
+          <Property Name="Option_Top5_Short_Buy" Type="money" Nullable="false" />
+          <Property Name="Option_Top5_Short_Buy_Percent" Type="money" Nullable="false" />
+          <Property Name="Option_Top5_Short_Sell" Type="money" Nullable="false" />
+          <Property Name="Option_Top5_Short_Sell_Percent" Type="money" Nullable="false" />
+          <Property Name="Option_Top10_Short_Buy" Type="money" Nullable="false" />
+          <Property Name="Option_Top10_Short_Buy_Percent" Type="money" Nullable="false" />
+          <Property Name="Option_Top10_Short_Sell" Type="money" Nullable="false" />
+          <Property Name="Option_Top10_Short_Sell_Percent" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vouchers">
+          <Key>
+            <PropertyRef Name="Stock_Number" />
+            <PropertyRef Name="Publish_Date" />
+          </Key>
+          <Property Name="Stock_Number" Type="int" Nullable="false" />
+          <Property Name="Publish_Date" Type="datetime" Nullable="false" />
+          <Property Name="VoucherRatio" Type="money" Nullable="false" />
+          <Property Name="DayTradingRatio" Type="money" Nullable="false" />
+          <Property Name="FinancingValue" Type="money" Nullable="false" />
+          <Property Name="MarginValue" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FinanceModelStoreContainer">
+          <EntitySet Name="BullAndBear" EntityType="Self.BullAndBear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CRB_BDI" EntityType="Self.CRB_BDI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CYQ" EntityType="Self.CYQ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exchange" EntityType="Self.Exchange" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libor" EntityType="Self.Libor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Macroeconomics" EntityType="Self.Macroeconomics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonetaryAggregate" EntityType="Self.MonetaryAggregate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Taifex" EntityType="Self.Taifex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vouchers" EntityType="Self.Vouchers" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FinanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Exchange">
+          <Key>
+            <PropertyRef Name="Currency" />
+            <PropertyRef Name="QuotedDate" />
+          </Key>
+          <Property Name="Currency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QuotedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CashRate_Buying" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="CashRate_Selling" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SpotRate_Buying" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SpotRate_Selling" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Price_Date" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="stockName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Volume" Type="Int32" Nullable="false" />
+          <Property Name="Price_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price_Open" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Price_High" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Price_Low" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Price_Close" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityContainer Name="FinanceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Exchanges" EntityType="Self.Exchange" />
+          <EntitySet Name="Stocks" EntityType="Self.Stock" />
+          <EntitySet Name="Libors" EntityType="FinanceModel.Libor" />
+          <EntitySet Name="MonetaryAggregates" EntityType="FinanceModel.MonetaryAggregate" />
+          <EntitySet Name="Taifexes" EntityType="FinanceModel.Taifex" />
+          <EntitySet Name="Macroeconomics" EntityType="FinanceModel.Macroeconomic" />
+          <EntitySet Name="BullAndBears" EntityType="FinanceModel.BullAndBear" />
+          <EntitySet Name="CYQs" EntityType="FinanceModel.CYQ" />
+          <EntitySet Name="Vouchers" EntityType="FinanceModel.Voucher" />
+          <EntitySet Name="CRB_BDI" EntityType="FinanceModel.CRB_BDI" />
+        </EntityContainer>
+        <EntityType Name="Libor">
+          <Key>
+            <PropertyRef Name="QuotedDate" />
+          </Key>
+          <Property Name="QuotedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="C0N" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="C1W" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="C1M" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="C3M" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="C6M" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="C12M" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="MonetaryAggregate">
+          <Key>
+            <PropertyRef Name="QuotedDate" />
+          </Key>
+          <Property Name="QuotedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="M1A_Daily" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="M1A_Annual_Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="M1B_Daily" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="M1B_Annual_Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="M2_Daily" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="M2_Annual_Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Taifex">
+          <Key>
+            <PropertyRef Name="QuotedDate" />
+          </Key>
+          <Property Name="QuotedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Future_Foreign_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Foreign_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Foreign_Net" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Dealer_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Dealer_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Dealer_Net" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Top5_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Top5_Buy_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Top5_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Top5_Sell_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Top10_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Top10_Buy_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Top10_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Future_Top10_Sell_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Foreign_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Foreign_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Foreign_Net" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Dealer_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Dealer_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Dealer_Net" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top5_Long_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top5_Long_Buy_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top5_Long_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top5_Long_Sell_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top10_Long_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top10_Long_Buy_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top10_Long_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top10_Long_Sell_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top5_Short_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top5_Short_Buy_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top5_Short_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top5_Short_Sell_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top10_Short_Buy" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top10_Short_Buy_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top10_Short_Sell" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Option_Top10_Short_Sell_Percent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Macroeconomic">
+          <Key>
+            <PropertyRef Name="Publish_Date" />
+          </Key>
+          <Property Name="Publish_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CPI" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CPI_GrowthRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CCPI" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CCPI_GrowthRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PPI_GrowthRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Unemployment_Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="NFP" Type="Int32" Nullable="false" />
+          <Property Name="Weekly_Work_Hours" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Hourly_WageRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Export_IncreasedRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Export_PriceRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Import_IncreasedRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Import_PriceRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Housing_Starts" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Housing_Starts_GrowthRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Retail_Sales_Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Retail_Sales_Rate_NoCar" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Personal_Expenditure_Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Individual_Income_Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ICS" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Capacity_Utilization" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Durable_Orders" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Factory_Orders" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Factory_Stock" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Factory_Shipments" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Manufacturing_PMI" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PMI" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="BullAndBear">
+          <Key>
+            <PropertyRef Name="Publish_Date" />
+          </Key>
+          <Property Name="Publish_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Bull" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Limit_Up" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Red_Candle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Bear" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Limit_Down" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Black_Candle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="CYQ">
+          <Key>
+            <PropertyRef Name="Stock_Number" />
+            <PropertyRef Name="Publish_Week" />
+          </Key>
+          <Property Name="Stock_Number" Type="Int32" Nullable="false" />
+          <Property Name="Publish_Week" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CYQ1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Foreign_Investment" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Major_Player" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Supervisor" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="Stock_Number" />
+            <PropertyRef Name="Publish_Date" />
+          </Key>
+          <Property Name="Stock_Number" Type="Int32" Nullable="false" />
+          <Property Name="Publish_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VoucherRatio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="DayTradingRatio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FinancingValue" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="MarginValue" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="CRB_BDI">
+          <Key>
+            <PropertyRef Name="Publish_Date" />
+          </Key>
+          <Property Name="Publish_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BDI" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CRB" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Oil" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FinanceModelStoreContainer" CdmEntityContainer="FinanceEntities">
+          <EntitySetMapping Name="Exchanges">
+            <EntityTypeMapping TypeName="FinanceModel.Exchange">
+              <MappingFragment StoreEntitySet="Exchange">
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="QuotedDate" ColumnName="QuotedDate" />
+                <ScalarProperty Name="CashRate_Buying" ColumnName="CashRate_Buying" />
+                <ScalarProperty Name="CashRate_Selling" ColumnName="CashRate_Selling" />
+                <ScalarProperty Name="SpotRate_Buying" ColumnName="SpotRate_Buying" />
+                <ScalarProperty Name="SpotRate_Selling" ColumnName="SpotRate_Selling" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stocks">
+            <EntityTypeMapping TypeName="FinanceModel.Stock">
+              <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="Price_Close" ColumnName="Price_Close" />
+                <ScalarProperty Name="Price_Low" ColumnName="Price_Low" />
+                <ScalarProperty Name="Price_High" ColumnName="Price_High" />
+                <ScalarProperty Name="Price_Open" ColumnName="Price_Open" />
+                <ScalarProperty Name="Price_Date" ColumnName="Price_Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="stockName" ColumnName="stockName" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libors">
+            <EntityTypeMapping TypeName="FinanceModel.Libor">
+              <MappingFragment StoreEntitySet="Libor">
+                <ScalarProperty Name="C12M" ColumnName="12M" />
+                <ScalarProperty Name="C6M" ColumnName="6M" />
+                <ScalarProperty Name="C3M" ColumnName="3M" />
+                <ScalarProperty Name="C1M" ColumnName="1M" />
+                <ScalarProperty Name="C1W" ColumnName="1W" />
+                <ScalarProperty Name="C0N" ColumnName="0N" />
+                <ScalarProperty Name="QuotedDate" ColumnName="QuotedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonetaryAggregates">
+            <EntityTypeMapping TypeName="FinanceModel.MonetaryAggregate">
+              <MappingFragment StoreEntitySet="MonetaryAggregate">
+                <ScalarProperty Name="M2_Annual_Rate" ColumnName="M2_Annual_Rate" />
+                <ScalarProperty Name="M2_Daily" ColumnName="M2_Daily" />
+                <ScalarProperty Name="M1B_Annual_Rate" ColumnName="M1B_Annual_Rate" />
+                <ScalarProperty Name="M1B_Daily" ColumnName="M1B_Daily" />
+                <ScalarProperty Name="M1A_Annual_Rate" ColumnName="M1A_Annual_Rate" />
+                <ScalarProperty Name="M1A_Daily" ColumnName="M1A_Daily" />
+                <ScalarProperty Name="QuotedDate" ColumnName="QuotedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taifexes">
+            <EntityTypeMapping TypeName="FinanceModel.Taifex">
+              <MappingFragment StoreEntitySet="Taifex">
+                <ScalarProperty Name="Option_Top10_Short_Sell_Percent" ColumnName="Option_Top10_Short_Sell_Percent" />
+                <ScalarProperty Name="Option_Top10_Short_Sell" ColumnName="Option_Top10_Short_Sell" />
+                <ScalarProperty Name="Option_Top10_Short_Buy_Percent" ColumnName="Option_Top10_Short_Buy_Percent" />
+                <ScalarProperty Name="Option_Top10_Short_Buy" ColumnName="Option_Top10_Short_Buy" />
+                <ScalarProperty Name="Option_Top5_Short_Sell_Percent" ColumnName="Option_Top5_Short_Sell_Percent" />
+                <ScalarProperty Name="Option_Top5_Short_Sell" ColumnName="Option_Top5_Short_Sell" />
+                <ScalarProperty Name="Option_Top5_Short_Buy_Percent" ColumnName="Option_Top5_Short_Buy_Percent" />
+                <ScalarProperty Name="Option_Top5_Short_Buy" ColumnName="Option_Top5_Short_Buy" />
+                <ScalarProperty Name="Option_Top10_Long_Sell_Percent" ColumnName="Option_Top10_Long_Sell_Percent" />
+                <ScalarProperty Name="Option_Top10_Long_Sell" ColumnName="Option_Top10_Long_Sell" />
+                <ScalarProperty Name="Option_Top10_Long_Buy_Percent" ColumnName="Option_Top10_Long_Buy_Percent" />
+                <ScalarProperty Name="Option_Top10_Long_Buy" ColumnName="Option_Top10_Long_Buy" />
+                <ScalarProperty Name="Option_Top5_Long_Sell_Percent" ColumnName="Option_Top5_Long_Sell_Percent" />
+                <ScalarProperty Name="Option_Top5_Long_Sell" ColumnName="Option_Top5_Long_Sell" />
+                <ScalarProperty Name="Option_Top5_Long_Buy_Percent" ColumnName="Option_Top5_Long_Buy_Percent" />
+                <ScalarProperty Name="Option_Top5_Long_Buy" ColumnName="Option_Top5_Long_Buy" />
+                <ScalarProperty Name="Option_Dealer_Net" ColumnName="Option_Dealer_Net" />
+                <ScalarProperty Name="Option_Dealer_Sell" ColumnName="Option_Dealer_Sell" />
+                <ScalarProperty Name="Option_Dealer_Buy" ColumnName="Option_Dealer_Buy" />
+                <ScalarProperty Name="Option_Foreign_Net" ColumnName="Option_Foreign_Net" />
+                <ScalarProperty Name="Option_Foreign_Sell" ColumnName="Option_Foreign_Sell" />
+                <ScalarProperty Name="Option_Foreign_Buy" ColumnName="Option_Foreign_Buy" />
+                <ScalarProperty Name="Future_Top10_Sell_Percent" ColumnName="Future_Top10_Sell_Percent" />
+                <ScalarProperty Name="Future_Top10_Sell" ColumnName="Future_Top10_Sell" />
+                <ScalarProperty Name="Future_Top10_Buy_Percent" ColumnName="Future_Top10_Buy_Percent" />
+                <ScalarProperty Name="Future_Top10_Buy" ColumnName="Future_Top10_Buy" />
+                <ScalarProperty Name="Future_Top5_Sell_Percent" ColumnName="Future_Top5_Sell_Percent" />
+                <ScalarProperty Name="Future_Top5_Sell" ColumnName="Future_Top5_Sell" />
+                <ScalarProperty Name="Future_Top5_Buy_Percent" ColumnName="Future_Top5_Buy_Percent" />
+                <ScalarProperty Name="Future_Top5_Buy" ColumnName="Future_Top5_Buy" />
+                <ScalarProperty Name="Future_Dealer_Net" ColumnName="Future_Dealer_Net" />
+                <ScalarProperty Name="Future_Dealer_Sell" ColumnName="Future_Dealer_Sell" />
+                <ScalarProperty Name="Future_Dealer_Buy" ColumnName="Future_Dealer_Buy" />
+                <ScalarProperty Name="Future_Foreign_Net" ColumnName="Future_Foreign_Net" />
+                <ScalarProperty Name="Future_Foreign_Sell" ColumnName="Future_Foreign_Sell" />
+                <ScalarProperty Name="Future_Foreign_Buy" ColumnName="Future_Foreign_Buy" />
+                <ScalarProperty Name="QuotedDate" ColumnName="QuotedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Macroeconomics">
+            <EntityTypeMapping TypeName="FinanceModel.Macroeconomic">
+              <MappingFragment StoreEntitySet="Macroeconomics">
+                <ScalarProperty Name="PMI" ColumnName="PMI" />
+                <ScalarProperty Name="Manufacturing_PMI" ColumnName="Manufacturing_PMI" />
+                <ScalarProperty Name="Factory_Shipments" ColumnName="Factory_Shipments" />
+                <ScalarProperty Name="Factory_Stock" ColumnName="Factory_Stock" />
+                <ScalarProperty Name="Factory_Orders" ColumnName="Factory_Orders" />
+                <ScalarProperty Name="Durable_Orders" ColumnName="Durable_Orders" />
+                <ScalarProperty Name="Capacity_Utilization" ColumnName="Capacity_Utilization" />
+                <ScalarProperty Name="ICS" ColumnName="ICS" />
+                <ScalarProperty Name="Individual_Income_Rate" ColumnName="Individual_Income_Rate" />
+                <ScalarProperty Name="Personal_Expenditure_Rate" ColumnName="Personal_Expenditure_Rate" />
+                <ScalarProperty Name="Retail_Sales_Rate_NoCar" ColumnName="Retail_Sales_Rate_NoCar" />
+                <ScalarProperty Name="Retail_Sales_Rate" ColumnName="Retail_Sales_Rate" />
+                <ScalarProperty Name="Housing_Starts_GrowthRate" ColumnName="Housing_Starts_GrowthRate" />
+                <ScalarProperty Name="Housing_Starts" ColumnName="Housing_Starts" />
+                <ScalarProperty Name="Import_PriceRate" ColumnName="Import_PriceRate" />
+                <ScalarProperty Name="Import_IncreasedRate" ColumnName="Import_IncreasedRate" />
+                <ScalarProperty Name="Export_PriceRate" ColumnName="Export_PriceRate" />
+                <ScalarProperty Name="Export_IncreasedRate" ColumnName="Export_IncreasedRate" />
+                <ScalarProperty Name="Hourly_WageRate" ColumnName="Hourly_WageRate" />
+                <ScalarProperty Name="Weekly_Work_Hours" ColumnName="Weekly_Work_Hours" />
+                <ScalarProperty Name="NFP" ColumnName="NFP" />
+                <ScalarProperty Name="Unemployment_Rate" ColumnName="Unemployment_Rate" />
+                <ScalarProperty Name="PPI_GrowthRate" ColumnName="PPI_GrowthRate" />
+                <ScalarProperty Name="CCPI_GrowthRate" ColumnName="CCPI_GrowthRate" />
+                <ScalarProperty Name="CCPI" ColumnName="CCPI" />
+                <ScalarProperty Name="CPI_GrowthRate" ColumnName="CPI_GrowthRate" />
+                <ScalarProperty Name="CPI" ColumnName="CPI" />
+                <ScalarProperty Name="Publish_Date" ColumnName="Publish_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BullAndBears">
+            <EntityTypeMapping TypeName="FinanceModel.BullAndBear">
+              <MappingFragment StoreEntitySet="BullAndBear">
+                <ScalarProperty Name="Black_Candle" ColumnName="Black_Candle" />
+                <ScalarProperty Name="Limit_Down" ColumnName="Limit_Down" />
+                <ScalarProperty Name="Bear" ColumnName="Bear" />
+                <ScalarProperty Name="Red_Candle" ColumnName="Red_Candle" />
+                <ScalarProperty Name="Limit_Up" ColumnName="Limit_Up" />
+                <ScalarProperty Name="Bull" ColumnName="Bull" />
+                <ScalarProperty Name="Publish_Date" ColumnName="Publish_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CYQs">
+            <EntityTypeMapping TypeName="FinanceModel.CYQ">
+              <MappingFragment StoreEntitySet="CYQ">
+                <ScalarProperty Name="Supervisor" ColumnName="Supervisor" />
+                <ScalarProperty Name="Major_Player" ColumnName="Major_Player" />
+                <ScalarProperty Name="Foreign_Investment" ColumnName="Foreign_Investment" />
+                <ScalarProperty Name="CYQ1" ColumnName="CYQ" />
+                <ScalarProperty Name="Publish_Week" ColumnName="Publish_Week" />
+                <ScalarProperty Name="Stock_Number" ColumnName="Stock_Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vouchers">
+            <EntityTypeMapping TypeName="FinanceModel.Voucher">
+              <MappingFragment StoreEntitySet="Vouchers">
+                <ScalarProperty Name="MarginValue" ColumnName="MarginValue" />
+                <ScalarProperty Name="FinancingValue" ColumnName="FinancingValue" />
+                <ScalarProperty Name="DayTradingRatio" ColumnName="DayTradingRatio" />
+                <ScalarProperty Name="VoucherRatio" ColumnName="VoucherRatio" />
+                <ScalarProperty Name="Publish_Date" ColumnName="Publish_Date" />
+                <ScalarProperty Name="Stock_Number" ColumnName="Stock_Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRB_BDI">
+            <EntityTypeMapping TypeName="FinanceModel.CRB_BDI">
+              <MappingFragment StoreEntitySet="CRB_BDI">
+                <ScalarProperty Name="Oil" ColumnName="Oil" />
+                <ScalarProperty Name="CRB" ColumnName="CRB" />
+                <ScalarProperty Name="BDI" ColumnName="BDI" />
+                <ScalarProperty Name="Publish_Date" ColumnName="Publish_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

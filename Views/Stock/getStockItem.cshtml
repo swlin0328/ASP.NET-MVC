@@ -1,0 +1,112 @@
+﻿@model WebApplication3.ViewModels.StockItem
+
+@{
+    ViewBag.Title = "個股價格";
+}
+<div id="DataList">
+    <h3>個股價格</h3>
+    @using (Html.BeginForm("getStockItem", "Stock", FormMethod.Get))
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Search)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Search)
+                </td>
+                <td>
+                    <input type="submit" value="搜尋" />
+                </td>
+            </tr>
+        </table>
+    }
+
+    <div class="col-md-12">
+    @Ajax.ActionLink("歷史股價", "getStockHistory", new { Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+    @Html.ActionLink("技術分析", "StockItemTech", new { Num = Model.Search })
+    </div>
+    <div class="col-md-8">
+    <table cellpadding="10" cellspacing="0" style="text-align:right">
+        @if (Model != null)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Time)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Deal)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Buy)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Sell)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Change)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Volume)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.lastDay)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.High)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Low)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Model.Name
+                </td>
+                <td>
+                    @Model.Time
+                </td>
+                <td>
+                    @Model.Deal
+                </td>
+                <td>
+                    @Model.Buy
+                </td>
+                <td>
+                    @Model.Sell
+                </td>
+                <td>
+                    @Model.Change
+                </td>
+                <td>
+                    @Model.Volume
+                </td>
+                <td>
+                    @Model.lastDay
+                </td>
+                <td>
+                    @Model.High
+                </td>
+                <td>
+                    @Model.Low
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="10">
+                    查無資料
+                </td>
+            </tr>
+        }
+    </table>
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+}

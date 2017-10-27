@@ -1,0 +1,339 @@
+﻿@model WebApplication3.ViewModels.TechData
+
+@{
+    ViewBag.Title = "技術分析";
+}
+
+@{
+    decimal high = Model.StockList[0].Price_High;
+    decimal low = Model.StockList[0].Price_Low;
+}
+
+@for (int i = 1; i < Model.StockList.Count(); i++)
+{
+    if (high < Model.StockList[i].Price_High)
+    {
+        high = Model.StockList[i].Price_High;
+    }
+    if (low > Model.StockList[i].Price_Low)
+    {
+        low = Model.StockList[i].Price_Low;
+    }
+}
+
+
+@for (int j = 0; j < Model.StockList.Count(); j++)
+{
+    <span id="Low_@j" style="display:none;">@Model.StockList[j].Price_Low</span>
+    <span id="High_@j" style="display:none;">@Model.StockList[j].Price_High</span>
+    <span id="Open_@j" style="display:none;">@Model.StockList[j].Price_Open</span>
+    <span id="Close_@j" style="display:none;">@Model.StockList[j].Price_Close</span>
+}
+
+<span id="Lowest" style="display:none;">@low</span>
+<span id="Highest" style="display:none;">@high</span>
+<span id="Count" style="display:none;">@Model.StockList.Count()</span>
+
+@for (int j = 0; j < Model.CRB_BDIList.Count(); j++)
+{
+    <span id="BDI_@j" style="display:none;">@Model.CRB_BDIList[j].BDI</span>
+    <span id="CRB_@j" style="display:none;">@Model.CRB_BDIList[j].CRB</span>
+    <span id="Oil_@j" style="display:none;">@Model.CRB_BDIList[j].Oil</span>
+}
+
+@for (int j = 0; j < 15; j++)
+{
+    <span id="CYQ_@j" style="display:none;">@Model.CYQList[j].CYQ1</span>
+}
+@for (int j = 0; j < Model.LiborList.Count(); j++)
+{
+    <span id="Libor_@j" style="display:none;">@Model.LiborList[j].C1M.ToString("0.0000")</span>
+}
+@for (int j = 0; j < Model.VoucherList.Count(); j++)
+{
+    <span id="Voucher_@j" style="display:none;">@Model.VoucherList[j].FinancingValue.ToString("0.0000")</span>
+}
+
+@for (int j = 0; j < 6; j++)
+{
+    <span id="MonetaryM1B_@j" style="display:none;">@Model.MonetaryList[j].M1B_Annual_Rate.ToString("0.0000")</span>
+    <span id="MonetaryM2_@j" style="display:none;">@Model.MonetaryList[j].M2_Annual_Rate.ToString("0.0000")</span>
+}
+
+<script type="text/javascript">
+    window.onload = function () {
+
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+        //可以開始畫圖了:)
+        context.strokeStyle = 'gray';
+        context.lineWidth = 2;
+        context.lineCap = "square";
+
+        context.beginPath();
+        context.moveTo(0, 225);
+        context.lineTo(600, 225);
+        context.stroke();
+
+        drawCandle('myCanvas', 'Lowest', 'Highest', 'Count');
+        drawMA('myCanvas', 'Lowest', 'Highest', 'Count');
+        drawBBands('myCanvas', 'Lowest', 'Highest', 'Count');
+
+        canvas = null;
+        canvas = document.getElementById("myCYQ");
+        context = canvas.getContext("2d");
+        //可以開始畫圖了:)
+        context.strokeStyle = 'gray';
+        context.lineWidth = 2;
+        context.lineCap = "square";
+
+        context.beginPath();
+        context.moveTo(0, 225);
+        context.lineTo(600, 225);
+        context.stroke();
+
+        drawCYQ('myCYQ', 'Count');
+        drawVolume('myCYQ', 'Count');
+        drawLibor('myCYQ', 'Count');
+        drawM1B('myCYQ', 'Count');
+        drawM2('myCYQ', 'Count');
+        drawFinacing('myCYQ', 'Count');
+        drawBDI('myCYQ', 'Count');
+        drawCRB('myCYQ', 'Count');
+        drawOil('myCYQ', 'Count');
+
+        calVolatility();
+        calEconomy();
+    };
+</script>
+@{
+    //-------------------------------------------------------------------------------------------------------------------------------------
+
+    decimal[] MA20 = new decimal[70];
+    decimal[] MA40 = new decimal[50];
+    decimal Volume = 0;
+
+    for (int j = 0; j < 70; j++)
+    {
+        MA20[j] = 0;
+        Volume = 0;
+        for (int i = 0; i < 20; i++)
+        {
+            MA20[j] += Model.StockList[i + j].Price_Close * Model.StockList[i + j].Volume;
+            Volume += Model.StockList[i + j].Volume;
+        }
+        MA20[j] = MA20[j] / Volume;
+        <span id="MA20_@j" style="display:none;">@MA20[j]</span>
+    }
+
+    for (int j = 0; j < 50; j++)
+    {
+        MA40[j] = 0;
+        Volume = 0;
+        for (int i = 0; i < 40; i++)
+        {
+            MA40[j] += Model.StockList[i + j].Price_Close * Model.StockList[i + j].Volume;
+            Volume += Model.StockList[i + j].Volume;
+        }
+        MA40[j] = MA40[j] / Volume;
+        <span id="MA40_@j" style="display:none;">@MA40[j]</span>
+    }
+
+    decimal profit20, profit40, profit;
+
+    profit = (100 * (MA20[0] - MA40[0]) / MA40[0]);
+    profit20 = (100 * (Model.StockList[0].Price_Close - MA20[0]) / MA20[0]);
+    profit40 = (100 * (Model.StockList[0].Price_Close - MA40[0]) / MA40[0]);
+    //-------------------------------------------------------------------------------------------------------------------------------------
+
+    decimal upVolume, downVolume;
+    decimal[] VolumeRate = new decimal[60];
+    for (int k = 0; k < 60; k++)
+    {
+        VolumeRate[k] = 0;
+        upVolume = 0;
+        downVolume = 0;
+        for (int j = 0; j < 13; j++)
+        {
+            if (Model.StockList[j + k].Price_Open < Model.StockList[j + k].Price_Close)
+            { upVolume += Model.StockList[j + k].Volume; }
+            else
+            { downVolume += Model.StockList[j + k].Volume; }
+        }
+        VolumeRate[k] = (upVolume / downVolume) * 10;
+        <span id="VolumeRate_@k" style="display:none;">@VolumeRate[k]</span>
+    }
+}
+@{
+    decimal[] momfirst5 = new decimal[4];
+    decimal[] momsecond5 = new decimal[3];
+    decimal[] momfirst50 = new decimal[4];
+    decimal[] momsecond50 = new decimal[3];
+
+    for (int i = 0; i < 4; i++)
+    {
+        momfirst5[i] = Model.StockList[i].Price_Close - Model.StockList[i + 5].Price_Close;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        momsecond5[i] = momfirst5[i] - momfirst5[i + 1];
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        momfirst50[i] = Model.StockList[i].Price_Close - Model.StockList[i + 50].Price_Close;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        momsecond50[i] = momfirst50[i] - momfirst50[i + 1];
+    }
+}
+
+<div>
+    <h4 class="blue">技術分析</h4>
+    <div id="divCanvas" class="col-md-7">
+        <canvas id="myCanvas" width="600" height="450" style="border: 1px solid #666666;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <div class="Control_Panel">
+            <button onclick="drawCandle('myCanvas','Lowest','Highest','Count');">K線</button>
+            <button onclick="drawMA('myCanvas','Lowest','Highest','Count');">20-40日均線</button>
+            <button onclick="drawBBands('myCanvas','Lowest','Highest','Count');">布林通道</button>
+            <button onclick="clearCanvas('myCanvas');">清空</button>
+        </div>
+    </div>
+    <div id="divTech" class="col-md-5">
+        <table style="text-align:right" class="TB_COLLAPSE">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td class="blue">
+                        目前-20MA
+                    </td>
+                    <td class="blue">
+                        目前-40MA
+                    </td>
+                    <td class="blue">
+                        20MA-40MA
+                    </td>
+                </tr>
+            </thead>
+            <tr>
+                <td>乖離率(獲利率)</td>
+                <td onmousemove="checkValue(this.id, this.innerText, 15)" id="profit20">
+                    @profit20.ToString("0.00")
+                </td>
+                <td onmousemove="checkValue(this.id, this.innerText, 20)" id="profit40">
+                    @profit40.ToString("0.00")
+                </td>
+                <td onmousemove="checkValue(this.id, this.innerText, 10)" id="profit">
+                    @profit.ToString("0.00")
+                </td>
+            </tr>
+            <tr>
+                <td>均線扣抵</td>
+                <td onmousemove="checkValue(this.id, this.innerText, 0.92 * document.getElementById('Close_0').innerText)" id="MA20Diff">
+                    @Model.StockList[20].Price_Close.ToString("0.00")
+                </td>
+                <td onmousemove="checkValue(this.id, this.innerText, 0.84 * document.getElementById('Close_0').innerText)" id="MA40Diff">
+                    @Model.StockList[40].Price_Close.ToString("0.00")
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>20日均線-加速度(T+5)</td>
+                <td onmousemove="checkValue(this.id, document.getElementById('acc50_0').innerText, this.innerText)" id="acc5_0">
+                    @momsecond5[0]
+                </td>
+                <td onmousemove="checkValue(this.id, document.getElementById('acc50_1').innerText, this.innerText)" id="acc5_1">
+                    @momsecond5[1]
+                </td>
+                <td onmousemove="checkValue(this.id, document.getElementById('acc50_2').innerText, this.innerText)" id="acc5_2">
+                    @momsecond5[2]
+                </td>
+            </tr>
+            <tr>
+                <td>20日均線-加速度(T+50)</td>
+                <td id="acc50_0">
+                    @momsecond50[0]
+                </td>
+                <td id="acc50_1">
+                    @momsecond50[1]
+                </td>
+                <td id="acc50_2">
+                    @momsecond50[2]
+                </td>
+            </tr>
+        </table>
+        <br />
+        <div class="col-md-6">
+            <h5 class="purple">額外資訊</h5>
+            <ul>
+                <li class="red">目前價位: @Model.StockList[0].Price_Close.ToString("0.00")</li>
+                <li>20MA: @MA20[0].ToString("0.00")</li>
+                <li>40MA: @MA40[0].ToString("0.00")</li>
+                <li id="Volatility"></li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h5 class="purple">備註</h5>
+            <ul>
+                <li class="purple">20MA</li>
+                <li class="blue">40MA</li>
+                <li class="brown">布林通道</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="col-md-7">
+        <h4 class="blue">籌碼分析</h4>
+        <canvas id="myCYQ" width="600" height="450" style="border: 1px solid #666666;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <div class="Control_Panel">
+            <button onclick="drawCYQ('myCYQ','Count');">籌碼集中度</button>
+            <button onclick="drawLibor('myCYQ','Count');">Libor利率</button>
+            <button onclick="drawM1B('myCYQ','Count');">M1B年增率</button>
+            <button onclick="drawM2('myCYQ','Count');">M2年增率</button>
+            <button onclick="drawFinacing('myCYQ', 'Count');">融資使用率</button>
+            <button onclick="drawVolume('myCYQ', 'Count');">成交量比率</button>
+            <br />
+            <button onclick="drawBDI('myCYQ', 'Count');">BDI</button>
+            <button onclick="drawCRB('myCYQ', 'Count');">CRB</button>
+            <button onclick="drawOil('myCYQ', 'Count');">Oil</button>
+            <button onclick="clearCanvas('myCYQ');">清空</button>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <br />
+        <div class="col-md-6">
+            <h5 class="purple">額外資訊</h5>
+            <ul>
+                <li id="BDI"></li>
+                <li id="Oil"></li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h5 class="purple">備註</h5>
+            <ul>
+                <li class="green">Libor</li>
+                <li class="orange">M1B</li>
+                <li class="red">M2</li>
+                <li class="purple">CYQ</li>
+                <li class="brown">融資使用率</li>
+                <li class="blue">成交量比率</li>
+                <li class="black">BDI</li>
+                <li class="magenta">CRB</li>
+                <li class="darkolivegreen">Oil</li>
+            </ul>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/Scripts/stock.js")
+}

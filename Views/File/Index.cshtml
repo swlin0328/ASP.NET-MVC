@@ -1,0 +1,102 @@
+﻿@model WebApplication3.ViewModels.FileView
+
+@{
+    ViewBag.Title = "檔案管理";
+}
+
+<h3>上傳檔案</h3>
+
+@using (Html.BeginForm("UploadFile", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.DisplayNameFor(model => model.FileName)
+    @Html.TextBoxFor(model => model.FileName)
+    <br />
+    <input type="file" name="upload">
+    <input type="submit" name="upload_submit" value="上傳" />
+}
+<h3>已上傳檔案</h3>
+<table>
+    <thead>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FileList[0].Name)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.FileList[0].CreateTime)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.FileList[0].Size)
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    @if (!Model.FileList.Count.Equals(0))
+    {
+        foreach (var item in Model.FileList)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.CreateTime
+                </td>
+                <td>
+                    @item.Size
+                </td>
+                <td>
+                    @Html.ActionLink("下載檔案", "DownloadFile", new { Id = item.Id })
+                </td>
+                <td>
+                    @Html.ActionLink("刪除檔案", "DeleteFile", new { Id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="4">
+                資料庫查無資料
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @if (Model.Paging.NowPage > 1)
+            {
+                @Html.ActionLink("<<", "Index", new { Page = 1 })
+                @Html.ActionLink("<", "Index", new { Page = Model.Paging.NowPage - 1 })
+            }
+        </td>
+        <td colspan="2">
+            @for (var page = (Model.Paging.NowPage - 5); page < (Model.Paging.NowPage) + 6; page++)
+            {
+                if ((page > 0) && page <= Model.Paging.MaxPage)
+                {
+                    if (page == Model.Paging.NowPage)
+                    {
+                        <b>@page</b>
+                    }
+                    else
+                    {
+                        @Html.ActionLink(page.ToString(), "Index", new { Page = page })
+                    }
+                }
+            }
+        </td>
+        <td>
+            @if (Model.Paging.NowPage < Model.Paging.MaxPage)
+            {
+                @Html.ActionLink(">", "Index", new { Page = Model.Paging.NowPage + 1 })
+                @Html.ActionLink(">>", "Index", new { Page = Model.Paging.MaxPage })
+            }
+        </td>
+    </tr>
+</table>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+}

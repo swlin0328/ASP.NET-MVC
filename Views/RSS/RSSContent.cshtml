@@ -1,0 +1,43 @@
+﻿@model WebApplication3.ViewModels.NewsView
+
+<div id="News2" class="News col-md-6" style="font-size:12px;">
+<h4 class="blue">奇摩股市-總經新聞</h4>
+@if (!Model.NewsList.Count.Equals(0))
+{
+    <table>
+        @foreach (var item in Model.NewsList)
+        {
+            <tr>
+                <td style="border-bottom:1px dashed"><span style="color:red;">@item.title</span> <span style="font-size:10px;"><a href="@item.link"> ...詳全文</a></span></td>
+            </tr>
+            <tr>
+                <td>@item.publishDate.Replace("GMT", "")</td>
+            </tr>
+            <tr>
+                <td style="border-bottom:1px solid">@item.description</td>
+            </tr>
+        }
+        <tr>
+    </table>
+}
+</div>
+<div id="News1" class="News col-md-6" style="font-size:12px;">
+<h4 class="blue">奇摩股市-個股新聞</h4>
+@if (!Model.NewsList.Count.Equals(0))
+{
+    <table>
+        @foreach (var item in Model.GlobalNewsList)
+        {
+            <tr>
+                <td style="border-bottom:1px dashed"><span style="color:red;">@item.title</span> <span style="font-size:10px;"><a href="@item.link"> ...詳全文</a></span></td>
+            </tr>
+            <tr>
+                <td>@item.publishDate</td>
+            </tr>
+            <tr>
+                <td style="border-bottom:1px solid">@item.description</td>
+            </tr>
+        }
+    </table>
+}
+</div>
